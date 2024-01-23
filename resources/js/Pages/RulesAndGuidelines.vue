@@ -49,12 +49,12 @@
     export default {
         setup() {
             const fetchRules = async () => {
-                const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/pikachu`);
+                const response = await axios.get(`https://sge-fastapi.onrender.com/api/v1/rule/all`);
                 return response.data;
             };
 
             const fetchGuidelines = async () => {
-                const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/pikachu`);
+                const response = await axios.get(`https://sge-fastapi.onrender.com/api/v1/guideline/all`);
                 return response.data;
             };
 
