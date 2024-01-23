@@ -49,12 +49,12 @@
     export default {
         setup() {
             const fetchRules = async () => {
-                const response = await axios.get(`${import.meta.env.VITE_FASTAPI_BASE_URL}/api/v1/rule/all`);
+                const response = await axios.get(`https://sge-fastapi.onrender.com/api/v1/rule/all`);
                 return response.data;
             };
 
             const fetchGuidelines = async () => {
-                const response = await axios.get(`${import.meta.env.VITE_FASTAPI_BASE_URL}/api/v1/guideline/all`);
+                const response = await axios.get(`https://sge-fastapi.onrender.com/api/v1/guideline/all`);
                 return response.data;
             };
 
