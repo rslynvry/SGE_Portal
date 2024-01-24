@@ -11,7 +11,7 @@
     }
 
     body{
-        background-color: transparent;
+        background-color: transparent !important;
         font-family: 'Inter', sans-serif;
     }
 </style>
