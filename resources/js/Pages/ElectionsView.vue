@@ -4,7 +4,7 @@
 
     <main class="main-margin" v-if="isElectionSuccess">
         <h1 class="current-page">
-            <span class="header" @click.prevent="returnPage">ONGOING ELECTIONS</span> 
+            <span class="header" @click.prevent="returnPage">ELECTIONS</span> 
             <span class="arrow"> ></span>
             {{ electionData.election.ElectionName }} 
         </h1>

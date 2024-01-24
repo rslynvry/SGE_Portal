@@ -50,12 +50,14 @@
                     atleastOneElection.value = false;
                 }           
 
-                return response.data.elections.map(election => {
+                /*return response.data.elections.map(election => {
                     const logo_url = `${import.meta.env.VITE_FASTAPI_BASE_URL}/api/v1/get/cached/elections/${election.OrganizationLogo}`
                     election.OrganizationLogo = logo_url;
 
                     return election;
-                });
+                });*/
+
+                return response.data.elections;
             }
 
             const { data: electionsData,

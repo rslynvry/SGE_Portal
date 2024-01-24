@@ -106,7 +106,9 @@
                         </div>
                     </div>
                     <div v-else style="text-align: center;">
-                        <h2 v-if="!isPartylistLoading && !isPartyCandidatesLoading" class="party-information">No candidates are currently running under this party list.</h2>
+                        <template v-if="!isPartylistLoading && !isPartyCandidatesLoading">
+                            <NoData>There are currently no candidates under this party list.</NoData>
+                        </template>
                     </div>
                     
                 </div>
@@ -119,6 +121,7 @@
     import Standards from '../Shared/Standards.vue'
     import Navbar from '../Shared/Navbar.vue'
     import ActionButton from '../Shared/ActionButton.vue'
+    import NoData from '../Shared/NoData.vue'
 
     import { useQuery } from "@tanstack/vue-query";
     import { router } from '@inertiajs/vue3';
@@ -176,7 +179,8 @@
         components: {
             Standards,
             Navbar,
-            ActionButton
+            ActionButton,
+            NoData,
         },
         props: {
             id: '',

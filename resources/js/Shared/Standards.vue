@@ -12,6 +12,6 @@
 
     body{
         background-color: transparent !important;
-        font-family: 'Inter', sans-serif;
+        font-family: 'Inter', sans-serif !important;
     }
 </style>

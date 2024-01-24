@@ -95,7 +95,7 @@
     }
 
     .card {
-        width: 26.5rem;
+        width: 24.8rem;
         height: 44rem;
         border-radius: 0px;
         overflow: hidden;
@@ -121,7 +121,7 @@
     }
 
     .card img:hover{
-        transform: scale(1.01);
+        transform: scale(1.04);
     }
 
     .card-body{

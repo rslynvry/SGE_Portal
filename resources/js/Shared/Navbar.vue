@@ -2,7 +2,7 @@
     <nav class="navbar navbar-expand-lg nav navbar-dark">
         <div class="navbar-contents">
             <div>
-                <img src="../../images/Navbar/puplogo.png" alt="" class="puplogo">
+                <img src="../../images/Navbar/puplogo.png" @click="goHome" alt="" class="puplogo">
                 <img src="../../images/Navbar/portal.png" alt="" class="pcplogo">
             </div>
 
@@ -10,7 +10,7 @@
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <Link href="/home" 
-                            :class="{ 'active': $inertia.page.url.startsWith('/home') }" 
+                            :class="{ 'active': $inertia.page.url.startsWith('/home') || $inertia.page.url === '/' }" 
                             class="nav-link content mx-5" 
                             aria-current="page">HOME
                         </Link>
@@ -51,6 +51,7 @@
 
 <script>
     import { Link } from '@inertiajs/vue3'
+    import { router } from '@inertiajs/vue3'
 
     export default {
         setup() {
@@ -60,6 +61,11 @@
         },
         components: {
             Link,
+        },
+        methods: {
+            goHome(){
+                router.visit('/')
+            }
         }
     }
 
@@ -88,6 +94,10 @@
         width: 58px;
     }
 
+    .puplogo:hover{
+        cursor: pointer;
+    }
+
     .pcplogo{
         width: 200px;
         margin: 0px 30px;
@@ -98,7 +108,9 @@
         font-size: 18px;
     }
 
-    .content:hover{
+    .content:hover,
+    .content:active,
+    .content:focus{
         color: #800000;
     }
 

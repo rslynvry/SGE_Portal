@@ -231,7 +231,7 @@
     .select-announcement{
         text-decoration: none;
         color: black;
-        margin: 0% 1.5%;
+        margin: 0% 0.8%;
         margin-bottom: 2%;
     }
 

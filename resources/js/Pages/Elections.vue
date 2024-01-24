@@ -3,8 +3,9 @@
     <Navbar></Navbar>
     
     <main class="main-margin">
-        <h1 class="header">ONGOING ELECTIONS</h1>
+        <h1 class="header">ELECTIONS</h1>
 
+        <template v-if="atLeastOneElection">
         <div class="election" v-for="(election, index) in electionsData" v-if="isElectionsSuccess">
             <div class="election-wrapper" :class="{ 'open': isOpen(election.ElectionId) }">
                 <div class="election-header">
@@ -106,6 +107,14 @@
                 </div>
             </div>
         </div>
+    </template> 
+
+    <template v-else>
+        <NoData v-if="isElectionsSuccess">
+            There are currently no elections.
+        </NoData>
+    </template>
+
     </main>
 
     <Appeal></Appeal>
@@ -117,6 +126,7 @@
     import BaseContainer from '../Shared/BaseContainer.vue'
     import BaseTable from '../Shared/BaseTable.vue'
     import Appeal from '../Shared/Appeal.vue'
+    import NoData from '../Shared/NoData.vue'
 
     import { ref } from 'vue'
     import axios from 'axios'
@@ -128,6 +138,7 @@
         setup(props){
             const showElection = ref([]);
             const isCardHovered = ref([]);
+            const atLeastOneElection = ref(false);
 
             const fetchElectionsTable = async () => {
                 const response = await axios.get(`${import.meta.env.VITE_FASTAPI_BASE_URL}/api/v1/election/all`, {
@@ -148,12 +159,18 @@
                     })
                 })
 
-                return response.data.elections.map(election => {
+                if (response.data.elections.length > 0) {
+                    atLeastOneElection.value = true;
+                }
+
+                /*return response.data.elections.map(election => {
                     const logo_url = `${import.meta.env.VITE_FASTAPI_BASE_URL}/api/v1/get/cached/elections/${election.OrganizationLogo}`
                     election.OrganizationLogo = logo_url;
 
                     return election;
-                });
+                });*/
+
+                return response.data.elections;
             }
 
             const { data: electionsData,
@@ -163,6 +180,7 @@
                     useQuery({
                         queryKey: ['fetchElectionsTable'],
                         queryFn: fetchElectionsTable,
+                        //staleTime: 1000 * 60 * 60,
                     })
 
             const isOpen = (id) => {
@@ -173,6 +191,7 @@
             return{
                 showElection,
                 isCardHovered,
+                atLeastOneElection,
 
                 electionsData,
                 isElectionsLoading,
@@ -188,6 +207,7 @@
             BaseContainer,
             BaseTable,
             Appeal,
+            NoData,
         },
         methods:{
             viewMore(election){

@@ -1,5 +1,5 @@
 <template>
-    <div class="appeal-modal" v-show="isModalOpen">
+    <div class="appeal-modal" v-show="isModalOpen" @click="outsideClick">
         <div class="appeal-content">
             <div class="appeal-header">
                 <h1 class="header-label">File an Appeal</h1>
@@ -12,7 +12,7 @@
             <textarea v-model="appeal_details" :disabled="submitting" class="form-control margin details" type="text" name="desc"></textarea>
 
             <label class="form-label">Upload Attachment <span style="font-family: Arial, Helvetica, sans-serif; font-size: 14px;">(Optional. 3mb max)</span> <ToolTip class="mx-2"><slot>If you have multiple images to provide, please compile it in pdf.</slot></ToolTip></label>
-            <input ref="attachment" @change="updateAttachment" :disabled="submitting" type="file" accept="image/*,.pdf" style="border: 1px solid #c2c2c2;" name="attachment" class="form-control">
+            <input ref="attachmentLabel" @change="updateAttachment" :disabled="submitting" type="file" accept="image/*,.pdf" style="border: 1px solid #c2c2c2;" name="attachment" class="form-control">
 
             <div class="appeal-buttons">
                 <button class="cancel-button" :disabled="submitting" @click.prevent="closeModal">Cancel</button>
@@ -61,12 +61,17 @@
             closeModal(){
                 this.isModalOpen = false;
             },
+            outsideClick(event){
+                if (event.target.className === 'appeal-modal') {
+                    this.closeModal();
+                }
+            },
             clearInputs(){
                 this.student_number = '';
                 this.appeal_details = '';
                 
                 this.attachment = null;
-                this.$refs.attachment.value = '';
+                this.$refs.attachmentLabel.value = '';
             },
             updateAttachment(event) {
                 const reader = new FileReader();
@@ -84,7 +89,7 @@
                     alert('Please enter your appeal details.');
                     return false;
                 }
-                if (this.attachment !== '') {
+                if (this.attachment !== '' || this.attachment !== null) {
                     if (this.attachment.size > 1024 * 1024 * 3) {
                         alert('File size exceeds 3mb.');
                         return false;
@@ -98,10 +103,15 @@
                     const data = {
                         student_number: this.student_number,
                         appeal_details: this.appeal_details,
-                        attachment: this.attachment,
+                        attachment: ''
                     }
 
                     this.submitting = true;
+                    
+                    if (this.attachment !== '' || this.attachment !== null) {
+                        data.attachment = this.attachment;
+                    }
+                    
                     axios.post(`${import.meta.env.VITE_FASTAPI_BASE_URL}/api/v1/election-appeals/submit`, data)
                     .then(response => {
                         alert('Appeal submitted successfully.');
@@ -109,6 +119,7 @@
                         this.clearInputs();
                     })
                     .catch(error => {
+                        console.log(error);
                         if (error.response.data.error) {
                             alert(error.response.data.error);
                         }
@@ -135,12 +146,14 @@
         width: 100%;
         height: 100%;
         background-color: rgba(0,0,0,0.4);
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .appeal-content{
         position: fixed;
-        right: 0;
-        bottom: 0;
         z-index: 98;
         width: 500px; /* Adjust as needed */
         height: auto; /* Adjust as needed */
@@ -148,6 +161,7 @@
         font-family: 'Inter', sans-serif;
         padding: 1.5%;
         border-radius: 5px;
+        height: min-content;
     }
 
     .header-label{

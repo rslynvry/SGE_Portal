@@ -4,9 +4,9 @@
     
     <main class="main-margin">
         <h1 class="current-page">
-            <span class="header" @click.prevent="returnPage">Directory</span> 
+            <span class="header" @click.prevent="returnDirectory">Directory</span> 
             <span class="arrow"> > </span>
-            <span class="header" @click.prevent="returnPage">Select Student Organization</span> 
+            <span class="header" @click.prevent="returnSelection">Select Student Organization</span> 
             <span class="arrow"> > </span>
             View
         </h1>
@@ -108,6 +108,7 @@
     import Navbar from '../Shared/Navbar.vue'
     import BaseContainer from '../Shared/BaseContainer.vue'
     import BaseTable from '../Shared/BaseTable.vue'
+    import NoData from '../Shared/NoData.vue'
 
     import { ref, watch } from 'vue'
     import axios from 'axios'
@@ -147,11 +148,15 @@
             Navbar,
             BaseContainer,
             BaseTable,
+            NoData,
         },
         props:{
             id: ''
         },
         methods:{
+            returnDirectory(){
+                router.visit('/directory')
+            },
             returnSelection(){
                 router.visit('/directory/student-organization')
             },
@@ -275,6 +280,7 @@
     }
 
     .organization-wrapper{
+        width: 100%;
         padding: 4%;
         height: 100%;
     }
