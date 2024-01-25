@@ -13,7 +13,7 @@
 
         <template v-if="!isOrganizationLoading">
             <div class="organization-header">
-                <img src="" alt="" class="organization-logo">
+                <img :src="organizationData.OrganizationLogo" alt="" class="organization-logo">
                 <h1 class="organization-name mt-2">{{ organizationData.OrganizationName }}</h1>
                 <div style="margin-left: auto;">
                     <span class="requirements"><strong>Course Requirements</strong>: {{ organizationData.OrganizationMemberRequirements }}</span>
@@ -199,8 +199,8 @@
     .line{
         border: 0;
         height: 2px;
-        background: rgb(249,249,249);
-        background: linear-gradient(90deg, rgba(249,249,249,1) 0%, rgba(217,217,217,1) 50%, rgba(249,249,249,1) 100%);
+        background: rgb(230,233,237);
+        background: linear-gradient(90deg, rgba(230,233,237,1) 0%, rgba(166,176,190,1) 50%, rgba(230,233,237,1) 100%);
         margin: 2% 0%;
     }
 

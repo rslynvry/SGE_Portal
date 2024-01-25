@@ -245,7 +245,7 @@
     }
 
     .form-control {
-        padding-left: 40px;  /* Adjust this value as needed */
+        padding-left: 10px;  /* Adjust this value as needed */
         font-size: 18px;
     }
 

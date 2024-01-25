@@ -722,8 +722,8 @@
 .line{
     border: 0;
     height: 2px;
-    background: rgb(249,249,249);
-    background: linear-gradient(90deg, rgba(249,249,249,1) 0%, rgb(176, 176, 176) 50%, rgba(249,249,249,1) 100%);
+    background: rgb(230,233,237);
+    background: linear-gradient(90deg, rgba(230,233,237,1) 0%, rgba(166,176,190,1) 50%, rgba(230,233,237,1) 100%);
     margin: 2% 0%;
 }
 
@@ -745,7 +745,7 @@
     bottom: 0;
     right: 0;
     width: 2px;
-    background: linear-gradient(180deg, rgba(249,249,249,1) 0%, rgba(217,217,217,1) 50%, rgba(249,249,249,1) 100%);
+    background: linear-gradient(180deg, rgba(230,233,237,1) 0%, rgba(166,176,190,1) 50%, rgba(230,233,237,1) 100%);
 }
 
 .position-label{

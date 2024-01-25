@@ -33,7 +33,7 @@
                             <img v-else src="" alt="?" class="announcement-img">
 
                             <span class="announcement-title">{{ announcement.title }}</span>
-                            <span class="announcement-date">"{{ announcement.announcement_type.toUpperCase() }}"</span>
+                            <span class="announcement-date" style="font-style: italic;">{{ announcement.announcement_type.toUpperCase() }}</span>
                             <span class="announcement-date">{{ toDate(announcement.created_at) }}</span>
                         </div>
                     </div>
@@ -212,8 +212,8 @@
     .line{
         border: 0;
         height: 2px;
-        background: rgb(249,249,249);
-        background: linear-gradient(90deg, rgba(249,249,249,1) 0%, rgba(217,217,217,1) 50%, rgba(249,249,249,1) 100%);
+        background: rgb(230,233,237);
+        background: linear-gradient(90deg, rgba(230,233,237,1) 0%, rgba(166,176,190,1) 50%, rgba(230,233,237,1) 100%);
         margin: 2% 0%;
     }
 
