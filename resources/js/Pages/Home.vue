@@ -70,12 +70,12 @@
         
         <ImageSkeleton v-if="isRecentLoading" 
                             :loading="isRecentLoading" 
-                            :itemCount="2" 
+                            :itemCount="3" 
                             :borderRadius="'10px'"
-                            :imageWidth="'27vw'" 
-                            :imageHeight="'35vh'"
-                            :containerMargin="'0% 18%'"
-                            :itemMargin="'5em'">
+                            :imageWidth="'460px'" 
+                            :imageHeight="'300px'"
+                            :containerMargin="'0% 10%'"
+                            :itemMargin="'.5%'">
         </ImageSkeleton>
         <div v-else class="announcements">
             <div class="announcements-wrapper">
@@ -437,6 +437,7 @@
         align-items: start;
         flex-direction: column;
         box-shadow: 0px 3px 5px rgba(167, 165, 165, 0.5);
+        background-color: white;
         transition: transform 0.4s ease;
         width: 500px;
     }

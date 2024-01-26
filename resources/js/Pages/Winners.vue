@@ -4,7 +4,7 @@
 
     <main class="main-margin">
         <h1 class="current-page">
-            <span class="header" @click.prevent="returnElections">ONGOING ELECTIONS</span> 
+            <span class="header" @click.prevent="returnElections">ELECTIONS</span> 
             <span class="arrow"> > </span>
             <span class="header" @click.prevent="returnCurrentElection">Selected Election</span> 
             <span class="arrow"> > </span>
@@ -290,8 +290,8 @@
     .line{
         border: 0;
         height: 2px;
-        background: rgb(249,249,249);
-        background: linear-gradient(90deg, rgba(249,249,249,1) 0%, rgba(217,217,217,1) 50%, rgba(249,249,249,1) 100%);
+        background: rgb(230,233,237);
+        background: linear-gradient(90deg, rgba(230,233,237,1) 0%, rgba(166,176,190,1) 50%, rgba(230,233,237,1) 100%);
         margin: 2% 0%;
     }
 

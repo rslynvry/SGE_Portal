@@ -4,11 +4,11 @@
 
     <main class="main-margin">
         <h1 class="current-page">
-            <span class="header" @click.prevent="returnPage">ONGOING ELECTIONS</span> 
+            <span class="header" @click.prevent="returnPage">ELECTIONS</span> 
             <span class="arrow"> ></span>
             {{ electionName }}
             <span class="arrow"> ></span>
-            FILE CERTIFICATE OF CANDIDACY
+            REGISTER PARTY LIST
         </h1>
 
         <div class="main">
@@ -78,7 +78,7 @@
                     </div>   
                     
                     <div class="components row my-4">
-                        <span class="header-label">Certification of Grades</span>
+                        <span class="header-label">Videos (Optional)</span>
                         <div>
                             <div class="" v-if="video !== '' && video.startsWith('https://www.youtube.com/watch?v=')">
                                 <iframe v-show="!videoLoadingState" @load="videoLoaded" style="margin-bottom: 1%;" width="100%" height="350px" :src="getEmbedUrl(video)" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>

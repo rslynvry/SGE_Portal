@@ -23,16 +23,20 @@
                                     :containerMargin="'3% 0%'"
                                 :itemMargin="'1em'">
                             </ImageSkeleton>
-                            <Carousel v-else :images="images" :interval="3500"></Carousel>
+                            <Carousel v-else :images="images" :interval="3500" style="width: 750px"></Carousel>
                         </div>
                         
                         <div class="col-6" v-if="!isAnnouncementLoading">
                             <div class="announcement-details">
-                                <span class="announcement-title">{{ title }}</span>
-                                <ToolTip class="mx-3">
-                                    <slot>Control the image carousel by clicking left/right carousel buttons or keyboard arrow keys</slot>
-                                </ToolTip>
-                                <div style="display: flex; justify-content: space-between;">
+                                    <span class="announcement-title">
+                                       
+                                        {{ title }}
+                                        <ToolTip style="font-size: 15px">
+                                            <slot>Control the image carousel by clicking left/right carousel buttons or keyboard arrow keys</slot>
+                                        </ToolTip>
+                                    </span>
+                                    
+                                <div class="my-4" style="display: flex; justify-content: space-between;">
                                     <span class="announcement-type">{{ announcement_type.toUpperCase() }}</span>
                                     <span class="announcement-date">{{ toDate(created_at) }}</span>
                                 </div>

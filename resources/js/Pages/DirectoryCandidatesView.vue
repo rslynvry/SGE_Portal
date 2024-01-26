@@ -51,20 +51,20 @@
                 </div>
         
                 <div class="candidate-rating-wrapper" v-else>
+                    <div class="verification-header mb-4">
+                        <h1 class="header-label">Candidate Rating Verification</h1>
+                        <button class="close-button" @click="closeRateCandidates"><img src="../../images/Directory/Candidates/View/close.svg" alt="" class="close-svg"></button>
+                    </div>
+
                     <div class="verification" v-for="(position, positionIndex) in positionsData" :key="positionIndex">
-                        <div class="verification-header">
-                            <h1 class="header-label">Candidate Rating Verification</h1>
-                            <button class="close-button" @click="closeRateCandidates"><img src="../../images/Directory/Candidates/View/close.svg" alt="" class="close-svg"></button>
-                        </div>
+                        <hr class="line">
+                        <span class="position-title" style="color: #800000;">{{ position.PositionName }}</span>
 
                         <template v-for="(candidate, candidateIndex) in candidatesData" :key="candidateIndex">
                             <template v-if="candidate.SelectedPositionName === position.PositionName">
-                                <hr class="line">
-
                                 <div class="inputs row">
-                                    <span class="position-title" style="color: #800000;">{{ position.PositionName }}</span>
-                                    <div class="rating">
-                                        <div class="rate-candidate">
+                                    <div class="rating my-3">
+                                        <div class="rate-candidate" style="margin-right: auto !important; margin-left: -3%;">
                                             <input type="radio" :id="'candidate-star5-' + positionIndex + '-' + candidateIndex" :name="'candidate-rate-' + positionIndex + '-' + candidateIndex" value="5"/>
                                             <label :for="'candidate-star5-' + positionIndex + '-' + candidateIndex" title="text">5 stars</label>
                                             
@@ -91,8 +91,6 @@
                         </template>
 
                     </div>
-
-                    <hr class="line">
                     
                     <div class="verify">
                         <button class="verify-button" @click="submitRating">Submit</button>
@@ -102,7 +100,7 @@
         </div>
 
         <h1 v-if="isElectionsLoading && isPositionsLoading && isCandidatesLoading && isCandidatesPerPositionLoading">Loading..</h1>
-        <div v-if="!isElectionsLoading && !isPositionsLoading && !isCandidatesLoading && !isCandidatesPerPositionLoading" class="election">
+        <div v-else class="election">
             <div class="election-wrapper">
                 <div class="election-header">
                     <div class="centered">
@@ -127,51 +125,53 @@
                         </a>
                     </aside>
 
-                    <div class="candidate-content" v-if="!isCandidatesPerPositionLoading" v-for="(candidatePosition, candidatePositionName, candidatePositionIndex) in candidatesPerPositionData" :key="candidatePositionIndex">
-                        <div class="mt-1 mb-3" style="text-align: center;">
-                            <span :id="candidatePositionName" class="position-title" style="color: #800000; text-transform: uppercase;">{{ candidatePositionName }} Candidates</span>
-                        </div>
-                        <div class="candidate" v-if="candidatePosition.length > 0" v-for="(candidate, candidateIndex) in candidatePosition">
-                            <div class="candidate-wrapper">
-                                <div class="candidate-information">
-                                    <img :src="candidate.DisplayPhoto" alt="" class="candidate-img">
-                                    <div class="candidate-description">
-                                        <div class="spacing">
-                                            <span class="candidate-name">{{ candidate.Student.FirstName + " " + (candidate.Student.MiddleName ? candidate.Student.MiddleName + " " : "") + candidate.Student.LastName }}</span>
-                                            <span v-if="candidate.Rating && candidate.TimesRated">Ratings: {{ candidate.Rating / candidate.TimesRated }}</span>
-                                            <span v-else>Ratings: 0</span>
-                                            <div class="rate-candidate">
-                                                <input type="radio" :id="'star5-' + candidatePositionIndex + '-' + candidateIndex" :name="'rate-' + candidatePositionIndex + '-' + candidateIndex" value="5"
-                                                        :checked="candidate.Rating / candidate.TimesRated >= 5" disabled/>
-                                                <label :for="'star5-' + candidatePositionIndex + '-' + candidateIndex" title="5 star">5 stars</label>
-                                                
-                                                <input type="radio" :id="'star4-' + candidatePositionIndex + '-' + candidateIndex" :name="'rate-' + candidatePositionIndex + '-' + candidateIndex" value="4" 
-                                                        :checked="candidate.Rating / candidate.TimesRated >= 4 && candidate.Rating / candidate.TimesRated <= 4.99" disabled/>
-                                                <label :for="'star4-' + candidatePositionIndex + '-' + candidateIndex" title="4 star">4 stars</label>
+                    <div style="width: 100% !important;">
+                        <div class="candidate-content" v-if="!isCandidatesPerPositionLoading" v-for="(candidatePosition, candidatePositionName, candidatePositionIndex) in candidatesPerPositionData" :key="candidatePositionIndex">
+                            <div class="mt-1 mb-3" style="text-align: center;">
+                                <span :id="candidatePositionName" class="position-title" style="color: #800000; text-transform: uppercase;">{{ candidatePositionName }} Candidates</span>
+                            </div>
+                            <div class="candidate" style="width: 100% !important;" v-if="candidatePosition.length > 0" v-for="(candidate, candidateIndex) in candidatePosition">
+                                <div class="candidate-wrapper" style="width: 100% !important;">
+                                    <div class="candidate-information" style="width: 100% !important;">
+                                        <img :src="candidate.DisplayPhoto" alt="" class="candidate-img">
+                                        <div class="candidate-description">
+                                            <div class="spacing">
+                                                <span class="candidate-name">{{ candidate.Student.FirstName + " " + (candidate.Student.MiddleName ? candidate.Student.MiddleName + " " : "") + candidate.Student.LastName }}</span>
+                                                <span v-if="candidate.Rating && candidate.TimesRated">Ratings: {{ candidate.Rating / candidate.TimesRated }}</span>
+                                                <span v-else>Ratings: 0</span>
+                                                <div class="rate-candidate">
+                                                    <input type="radio" :id="'star5-' + candidatePositionIndex + '-' + candidateIndex" :name="'rate-' + candidatePositionIndex + '-' + candidateIndex" value="5"
+                                                            :checked="candidate.Rating / candidate.TimesRated >= 5" disabled/>
+                                                    <label :for="'star5-' + candidatePositionIndex + '-' + candidateIndex" title="5 star">5 stars</label>
+                                                    
+                                                    <input type="radio" :id="'star4-' + candidatePositionIndex + '-' + candidateIndex" :name="'rate-' + candidatePositionIndex + '-' + candidateIndex" value="4" 
+                                                            :checked="candidate.Rating / candidate.TimesRated >= 4 && candidate.Rating / candidate.TimesRated <= 4.99" disabled/>
+                                                    <label :for="'star4-' + candidatePositionIndex + '-' + candidateIndex" title="4 star">4 stars</label>
 
-                                                <input type="radio" :id="'star3-' + candidatePositionIndex + '-' + candidateIndex" :name="'rate-' + candidatePositionIndex + '-' + candidateIndex" value="3" 
-                                                        :checked="candidate.Rating / candidate.TimesRated >= 3 && candidate.Rating / candidate.TimesRated <= 3.99" disabled/>
-                                                <label :for="'star3-' + candidatePositionIndex + '-' + candidateIndex" title="3 star">3 stars</label>
+                                                    <input type="radio" :id="'star3-' + candidatePositionIndex + '-' + candidateIndex" :name="'rate-' + candidatePositionIndex + '-' + candidateIndex" value="3" 
+                                                            :checked="candidate.Rating / candidate.TimesRated >= 3 && candidate.Rating / candidate.TimesRated <= 3.99" disabled/>
+                                                    <label :for="'star3-' + candidatePositionIndex + '-' + candidateIndex" title="3 star">3 stars</label>
 
-                                                <input type="radio" :id="'star2-' + candidatePositionIndex + '-' + candidateIndex" :name="'rate-' + candidatePositionIndex + '-' + candidateIndex" value="2" 
-                                                        :checked="candidate.Rating / candidate.TimesRated >= 2 && candidate.Rating / candidate.TimesRated <= 2.99" disabled/>
-                                                <label :for="'star2-' + candidatePositionIndex + '-' + candidateIndex" title="2 star">2 stars</label>
+                                                    <input type="radio" :id="'star2-' + candidatePositionIndex + '-' + candidateIndex" :name="'rate-' + candidatePositionIndex + '-' + candidateIndex" value="2" 
+                                                            :checked="candidate.Rating / candidate.TimesRated >= 2 && candidate.Rating / candidate.TimesRated <= 2.99" disabled/>
+                                                    <label :for="'star2-' + candidatePositionIndex + '-' + candidateIndex" title="2 star">2 stars</label>
 
-                                                <input type="radio" :id="'star1-' + candidatePositionIndex + '-' + candidateIndex" :name="'rate-' + candidatePositionIndex + '-' + candidateIndex" value="1" 
-                                                        :checked="candidate.Rating / candidate.TimesRated >= 1 && candidate.Rating / candidate.TimesRated <= 1.99" disabled/>
-                                                <label :for="'star1-' + candidatePositionIndex + '-' + candidateIndex" title="1 star">1 stars</label>
+                                                    <input type="radio" :id="'star1-' + candidatePositionIndex + '-' + candidateIndex" :name="'rate-' + candidatePositionIndex + '-' + candidateIndex" value="1" 
+                                                            :checked="candidate.Rating / candidate.TimesRated >= 1 && candidate.Rating / candidate.TimesRated <= 1.99" disabled/>
+                                                    <label :for="'star1-' + candidatePositionIndex + '-' + candidateIndex" title="1 star">1 stars</label>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <span class="etc" v-if="candidate.PartyListName">{{ candidate.PartyListName }}</span>
-                                        <span class="etc" v-else>Independent</span>
-                                        <span class="etc">{{ candidate.Student.CourseCode }} {{ candidate.Student.Year }}-{{ candidate.Student.Section }}</span>
-                                        <span class="motto" v-if="candidate.Motto && candidate.Motto !== ''">“{{ candidate.Motto }}”</span>
-                                        <span class="motto" v-else>No motto for this candidate.</span>
+                                            <span class="etc" v-if="candidate.PartyListName">{{ candidate.PartyListName }}</span>
+                                            <span class="etc" v-else>Independent</span>
+                                            <span class="etc">{{ candidate.Student.CourseCode }} {{ candidate.Student.Year }}-{{ candidate.Student.Section }}</span>
+                                            <span class="motto" v-if="candidate.Motto && candidate.Motto !== ''">“{{ candidate.Motto }}”</span>
+                                            <span class="motto" v-else>No motto for this candidate.</span>
 
-                                        <span class="platform-label">Platform:</span>
-                                        <p class="platform">
-                                            {{ candidate.Platform }}
-                                        </p>
+                                            <span class="platform-label">Platform:</span>
+                                            <p class="platform">
+                                                {{ candidate.Platform }}
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -775,7 +775,7 @@
 
 .candidate-content{
     margin-left: 2%;
-    width: 80%;
+    width: 100%;
 }
 
 .candidate{
