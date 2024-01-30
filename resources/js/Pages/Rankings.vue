@@ -89,15 +89,11 @@
                                     </div>
                                 </div>
                                 <div class="stats row">
-                                    <div class="stats-count col-4">
+                                    <div class="stats-count col-6">
                                         <span class="count-quantity">{{ rankOne.votes }}</span>
                                         <img src="../../images/Rankings/vote.svg" alt="" class="count-svg vote-svg">
                                     </div>
-                                    <div class="stats-count col-4">                                
-                                        <span class="count-quantity">{{ rankOne.times_abstained }}</span>
-                                        <img src="../../images/Rankings/abstain.svg" alt="" class="count-svg abstain-svg abstain">
-                                    </div>
-                                    <div class="stats-count col-4">                                
+                                    <div class="stats-count col-6">                                
                                         <span class="count-quantity">{{ rankOne.percentage.toFixed(2) }}</span>
                                         <img src="../../images/Rankings/percent.svg" alt="" class="count-svg percent">
                                     </div>
@@ -118,15 +114,11 @@
                                     </div>
                                 </div>
                                 <div class="stats row">
-                                    <div class="stats-count col-4">
+                                    <div class="stats-count col-6">
                                         <span class="count-quantity">{{ rankTwo.votes }}</span>
                                         <img src="../../images/Rankings/vote.svg" alt="" class="count-svg vote-svg">
                                     </div>
-                                    <div class="stats-count col-4">                                
-                                        <span class="count-quantity">{{ rankTwo.times_abstained }}</span>
-                                        <img src="../../images/Rankings/abstain.svg" alt="" class="count-svg abstain-svg abstain">
-                                    </div>
-                                    <div class="stats-count col-4">                                
+                                    <div class="stats-count col-6">                                
                                         <span class="count-quantity">{{ rankTwo.percentage.toFixed(2) }}</span>
                                         <img src="../../images/Rankings/percent.svg" alt="" class="count-svg percent">
                                     </div>
@@ -147,15 +139,11 @@
                                     </div>
                                 </div>
                                 <div class="stats row">
-                                    <div class="stats-count col-4">                                
+                                    <div class="stats-count col-6">                                
                                         <span class="count-quantity">{{ rankThree.votes }}</span>
                                         <img src="../../images/Rankings/vote.svg" alt="" class="count-svg vote-svg">
                                     </div>
-                                    <div class="stats-count col-4">                                
-                                        <span class="count-quantity">{{ rankThree.times_abstained }}</span>
-                                        <img src="../../images/Rankings/abstain.svg" alt="" class="count-svg abstain-svg abstain">
-                                    </div>
-                                    <div class="stats-count col-4">                                
+                                    <div class="stats-count col-6">                                
                                         <span class="count-quantity">{{ rankThree.percentage.toFixed(2) }}</span>
                                         <img src="../../images/Rankings/percent.svg" alt="" class="count-svg percent">
                                     </div>
