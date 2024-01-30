@@ -47,10 +47,10 @@
                     <div class="card">
                         <div class="card-wrapper">
                             <div class="card-information">
-                                <img src="../../images/Winners/vote.svg" alt="" class="card-svg vote-svg">
+                                <img src="../../images/Winners/active.svg" alt="" class="card-svg vote-svg">
                                 <div class="count">
                                     <span class="quantity" v-if="!isWinnersLoading">{{ this.winnersData.total_votes }}</span>
-                                    <span class="quantity-label">Votes</span>
+                                    <span class="quantity-label">Active Voters</span>
                                 </div>
                             </div>
                         </div>
@@ -58,10 +58,10 @@
                     <div class="card">
                         <div class="card-wrapper">
                             <div class="card-information">
-                                <img src="../../images/Winners/abstain.svg" alt="" class="card-svg abstain-svg">
+                                <img src="../../images/Winners/inactive.svg" alt="" class="card-svg">
                                 <div class="count">
                                     <span class="quantity" v-if="!isWinnersLoading">{{ this.winnersData.total_abstain }}</span>
-                                    <span class="quantity-label">Abstained</span>
+                                    <span class="quantity-label">Inactive Voters</span>
                                 </div>
                             </div>
                         </div>
@@ -351,7 +351,7 @@
     }
 
     .card-svg{
-        width: 90px;
+        width: 60px;
     }
 
     .count{

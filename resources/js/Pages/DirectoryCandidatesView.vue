@@ -424,6 +424,7 @@
                 this.isSending = true;
 
                 axios.post(`${import.meta.env.VITE_FASTAPI_BASE_URL}/api/v1/code/ratings/verification/generate`, {
+                    election_id: this.activeElectionIndex,
                     student_number: this.student_number,
                     code_type: 'Rating-Verification'
                 })

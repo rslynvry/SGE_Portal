@@ -278,7 +278,7 @@
 
             // Fetch party lists for the dropdown
             const fetchPartyLists = async () => {
-                const response = await axios.get(`${import.meta.env.VITE_FASTAPI_BASE_URL}/api/v1/partylist/approved/all`)
+                const response = await axios.get(`${import.meta.env.VITE_FASTAPI_BASE_URL}/api/v1/partylist/election/${id.value}/approved/all`)
 
                 return response.data.partylists;
             }
