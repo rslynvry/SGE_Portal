@@ -417,6 +417,8 @@
 
                 this.isSending = true;
 
+                // Send the request to the backend
+
                 axios.post(`${import.meta.env.VITE_FASTAPI_BASE_URL}/api/v1/code/coc/verification/generate`, {
                     election_id: Number(this.id),
                     student_number: this.student_number,
