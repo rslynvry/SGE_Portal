@@ -17,7 +17,10 @@
                     <div class="election-header">
                         <div class="centered">
                             <img :src="student_org_logo" alt="" class="election-logo">
-                            <span class="election-title">{{ electionsData.ElectionName  }}</span>
+                            <span class="election-title">
+                                {{ electionsData.ElectionName  }}
+                                - ({{(isVotingPeriodEnded() ? 'Ended' : 'Ongoing')}})
+                            </span>
                             <div class="end">
                                 <button class="header-button" @click="seeWinners"><img src="../../images/Rankings/result.svg" alt="" class="header-svg result"></button>
                             </div>
@@ -85,7 +88,8 @@
                                             </div>
                                         </div>
                                         <span class="top-name">{{ rankOne.full_name }}</span>
-                                        <span class="top-affiliation">{{ rankOne.partylist_name }}</span>
+                                        <span class="top-affiliation" v-if="rankOne.partylist_name">{{ rankOne.partylist_name }}</span>
+                                        <span class="top-affiliation" v-else>Independent</span>
                                     </div>
                                 </div>
                                 <div class="stats row">
@@ -110,7 +114,8 @@
                                             </div>
                                         </div>
                                         <span class="top-name">{{ rankTwo.full_name }}</span>
-                                        <span class="top-affiliation">{{ rankTwo.partylist_name }}</span>
+                                        <span class="top-affiliation" v-if="rankTwo.partylist_name">{{ rankTwo.partylist_name }}</span>
+                                        <span class="top-affiliation" v-else>Independent</span>
                                     </div>
                                 </div>
                                 <div class="stats row">
@@ -135,7 +140,8 @@
                                             </div>
                                         </div>
                                         <span class="top-name">{{ rankThree.full_name }}</span>
-                                        <span class="top-affiliation">{{ rankThree.partylist_name }}</span>
+                                        <span class="top-affiliation" v-if="rankThree.partylist_name">{{ rankThree.partylist_name }}</span>
+                                        <span class="top-affiliation" v-else>Independent</span>
                                     </div>
                                 </div>
                                 <div class="stats row">

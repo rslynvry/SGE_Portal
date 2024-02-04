@@ -27,10 +27,10 @@
         <AnnouncementsSkeleton v-if="hasFetchedAnnouncements" :loading="isAnnouncementLoading" :itemCount="3">
             <div class="announcements">
                 <div class="announcements-wrapper">
-                    <div class="select-announcement" v-for="(announcement, index) in announcementData" :key="index">
+                    <div class="select-announcement" v-for="(announcement, index) in announcementData" @click.prevent="onAnnouncementClick(announcement)" :key="index">
                         <div class="announcement-information">
-                            <img :src="announcement.images[0].url" @click.prevent="onAnnouncementClick(announcement)" v-if="announcement.images.length > 0" class="announcement-img">
-                            <img v-else src="" alt="?" class="announcement-img">
+                            <img :src="announcement.images[0].url" v-if="announcement.images.length > 0" class="announcement-img">
+                            <img v-else src="../../images/question.jpg" alt="?" class="announcement-img" style="object-fit: contain !important;">
 
                             <span class="announcement-title">{{ announcement.title }}</span>
                             <span class="announcement-date" style="font-style: italic;">{{ announcement.announcement_type.toUpperCase() }}</span>

@@ -147,7 +147,8 @@
         },
         methods: {
             returnPage(){
-                router.visit('/announcements');
+                // something weird is happening here
+                router.visit('/announcements?type=all');
             },
             prevSlide(){
                 if (this.currentIndex > 0){

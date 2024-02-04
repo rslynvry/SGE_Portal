@@ -137,7 +137,7 @@
                                         <div class="candidate-description">
                                             <div class="spacing">
                                                 <span class="candidate-name">{{ candidate.Student.FirstName + " " + (candidate.Student.MiddleName ? candidate.Student.MiddleName + " " : "") + candidate.Student.LastName }}</span>
-                                                <span v-if="candidate.Rating && candidate.TimesRated">Ratings: {{ candidate.Rating / candidate.TimesRated }}</span>
+                                                <span v-if="candidate.Rating && candidate.TimesRated">Ratings: {{ (candidate.Rating / candidate.TimesRated).toFixed(2) }}</span>
                                                 <span v-else>Ratings: 0</span>
                                                 <div class="rate-candidate">
                                                     <input type="radio" :id="'star5-' + candidatePositionIndex + '-' + candidateIndex" :name="'rate-' + candidatePositionIndex + '-' + candidateIndex" value="5"

@@ -46,6 +46,9 @@
                         </tbody>
                     </table>
                 </div>
+                <div>
+                    <h2 class="my-3" v-if="isVotersLoading">Loading..</h2>
+                </div>
                 
             </div>
         </div>
@@ -82,7 +85,7 @@
                     isSuccess: isVotersSuccess,
                     isError: isVotersError} =
                     useQuery({
-                        queryKey: ['fetchVotersData'],
+                        queryKey: [`fetchVotersData${activeElectionIndex.value}`],
                         queryFn: fetchVotersData,
                     })
 
@@ -252,6 +255,9 @@
     .voter-list{
         margin-top: 0.5%;
         margin-bottom: -1%;
+        height: fit-content;
+        max-height: 500px;
+        overflow-y: auto;
     }
 
     .table{
