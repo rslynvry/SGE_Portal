@@ -36,7 +36,7 @@
     }
 
     .carousel-item{
-        width: 500px;
+        width: 100%;
         height: 500px;
         background-color: #800000;
     }

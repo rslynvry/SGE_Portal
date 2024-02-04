@@ -12,7 +12,7 @@
         <div class="announcement">
             <div class="announcement-wrapper">
                 <div class="announcement-information">
-                    <div class="row">
+                    <div class="row" style="width: 100%;">
                         <div class="col-6">
                             <ImageSkeleton v-if="isAnnouncementLoading" 
                                     :loading="isAnnouncementLoading" 

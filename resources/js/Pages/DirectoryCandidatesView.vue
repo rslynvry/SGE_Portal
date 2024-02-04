@@ -93,7 +93,7 @@
                     </div>
                     
                     <div class="verify">
-                        <button class="verify-button" @click="submitRating">Submit</button>
+                        <button class="verify-button" @click="submitRating" :disabled="isRatingSubmitting">{{ ratingButtonText }}</button>
                     </div>
                 </div>
             </div>
@@ -216,6 +216,7 @@
 
             const isVerifying = ref(false);
             const isVerified = ref(false);
+            const isRatingSubmitting = ref(false);
 
             const fetchActiveElection = async () => {
                 const response = await axios.get(`${import.meta.env.VITE_FASTAPI_BASE_URL}/api/v1/election/view/${activeElectionIndex.value}`);
@@ -317,6 +318,7 @@
                 countdown,
                 isVerifying,
                 isVerified,
+                isRatingSubmitting,
 
                 electionsData,
                 isElectionsLoading,
@@ -366,6 +368,14 @@
                 }
                 else {
                     return 'Send Code';
+                }
+            },
+            ratingButtonText() {
+                if (this.isRatingSubmitting) {
+                    return 'Submitting..';
+                }
+                else {
+                    return 'Submit';
                 }
             },
             isCampaignPeriod() {
@@ -514,6 +524,12 @@
                     return alert('Please rate at least one candidate.')
                 }
 
+                if (this.isRatingSubmitting) {
+                    return
+                }
+
+                this.isRatingSubmitting = true;
+
                 // Pass the verified student number and rates + student number of candidates to backend
                 axios.post(`${import.meta.env.VITE_FASTAPI_BASE_URL}/api/v1/candidates/ratings/submit`, {
                     election_id: this.activeElectionIndex,
@@ -529,6 +545,9 @@
                     console.log(error)
                     
                     alert(error.response.data.error)
+                })
+                .finally(() => {
+                    this.isRatingSubmitting = false;
                 })
             },
          }
