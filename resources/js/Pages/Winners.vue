@@ -22,12 +22,13 @@
 
                 <hr class="line">
 
-                <div class="congratulations-card">
+                <div class="congratulations-card" v-if="!isElectionsLoading && !isWinnersLoading">
                     <div class="congratulations-wrapper">
                         <div class="congratulations-information">
-                            <img src="../../images/Winners/confetti.svg" alt="" class="congratulations-svg">
-                            <h1 class="message">We extend our sincere congratulations to each of you on your election victories! Your leadership journeys have now officially begun.</h1>
-                            <img src="../../images/Winners/fireworks.svg" alt="" class="congratulations-svg">
+                            <img v-if="!isNoWinnerForEveryPosition" src="../../images/Winners/confetti.svg" alt="" class="congratulations-svg">
+                            <h1 v-if="!isNoWinnerForEveryPosition" class="message">We extend our sincere congratulations to each of you on your election victories! Your leadership journeys have now officially begun.</h1>
+                            <h1 v-else class="message">We're sorry to inform you that the election results did not turn out successfully due to the lack of winners.</h1>
+                            <img v-if="!isNoWinnerForEveryPosition" src="../../images/Winners/fireworks.svg" alt="" class="congratulations-svg">
                         </div>
                     </div>
                 </div>
@@ -139,6 +140,7 @@
     export default {
         setup(props) {
             const electionId = ref(Number(props.election_id));
+            const isNoWinnerForEveryPosition = ref(true);
 
             const getElectionData = async () => {
                 const response = await axios.get(`${import.meta.env.VITE_FASTAPI_BASE_URL}/api/v1/election/view/${electionId.value}`);
@@ -172,8 +174,25 @@
                     queryFn: getWinnersFromElection,
                 })
 
+            // Watch if isWinnersSuccess is true
+            watch(isWinnersSuccess, (newValue, oldValue) => {
+                if (newValue) {
+
+                    // Check if there is no winner for every position 
+                    for (let position in winnersData.value.winners) {
+                        if (!winnersData.value.winners[position].no_winner) {
+                            isNoWinnerForEveryPosition.value = false;
+                            break;
+                        }
+                    }
+
+                    console.log(isNoWinnerForEveryPosition.value)
+                }
+            })
+
             return {
                 electionId,
+                isNoWinnerForEveryPosition,
 
                 electionsData,
                 isElectionsLoading,

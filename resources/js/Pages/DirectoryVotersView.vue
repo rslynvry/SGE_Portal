@@ -39,7 +39,7 @@
                         </thead>
                         <tbody v-for="(students, courseCode) in filteredVoters" :key="courseCode">
                           <tr v-for="student in students" :key="student.StudentNumber">
-                            <td><span class="table-padding">{{ student.LastName }} {{ student.FirstName }} {{ student.MiddleName ? student.MiddleName : '' }}</span></td>
+                            <td><span class="table-padding">{{ student.LastName }}, {{ student.FirstName }} {{ student.MiddleName ? student.MiddleName : '' }}</span></td>
                             <td><span class="table-padding center">{{ courseCode }}</span></td>
                             <td><span class="table-padding center">{{ student.Year }}-{{ student.Section }}</span></td>
                           </tr>

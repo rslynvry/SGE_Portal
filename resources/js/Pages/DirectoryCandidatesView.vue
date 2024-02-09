@@ -548,6 +548,9 @@
                 })
                 .finally(() => {
                     this.isRatingSubmitting = false;
+                    
+                    this.student_number = '';
+                    this.verification_code = '';
                 })
             },
          }

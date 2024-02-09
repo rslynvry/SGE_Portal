@@ -56,7 +56,7 @@
 
                     return election;
                 });*/
-                return response.data.elections;
+                return response.data.elections.slice().reverse();
             }
 
             const { data: electionsData,
