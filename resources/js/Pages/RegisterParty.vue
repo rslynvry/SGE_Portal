@@ -18,7 +18,9 @@
                         <span class="header-label">Party List Information</span>
 
                         <div>
-                            <label class="form-label" for="name">Party Name {{ party_input_status }}</label>
+                            <label class="form-label" for="name">Party Name 
+                                <span :class="{ 'not-eligible': party_input_status === '(Already taken)' }">{{ party_input_status }}</span>
+                            </label>
                             <input class="form-control" type="text" name="name" placeholder="Enter your party's name" @keyup="checkPartyDebounce" :disabled="is_submitting" v-model="party_name">
     
                             <label class="form-label mt-4" for="email">Email Address</label>
@@ -573,4 +575,9 @@
         cursor: pointer;
         text-decoration: underline;
     }
+
+    .not-eligible {
+        color: red !important;
+    }
+
 </style>

@@ -83,7 +83,7 @@
                     <div class="announcement-information">
                         <img class="announcement-img" v-if="recent.images.length > 0" :src="recent.images[0].url" alt="">
                         <img class="announcement-img" v-else src="" alt="?">
-                        <span class="announcement-title">{{ recent.title }}</span>
+                        <span class="announcement-title ellipsis">{{ recent.title }}</span>
                         <span class="announcement-date">{{ formatDate(recent.created_at) }}</span>
                     </div>
                 </div>
@@ -605,5 +605,11 @@
         height: 50px !important;
         z-index: 98;
         border-radius: 50px !important
+    }
+
+    .ellipsis {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 </style>

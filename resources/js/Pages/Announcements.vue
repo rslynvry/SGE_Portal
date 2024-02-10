@@ -32,7 +32,7 @@
                             <img :src="announcement.images[0].url" v-if="announcement.images.length > 0" class="announcement-img">
                             <img v-else src="../../images/question.jpg" alt="?" class="announcement-img" style="object-fit: contain !important;">
 
-                            <span class="announcement-title">{{ announcement.title }}</span>
+                            <span class="announcement-title ellipsis">{{ announcement.title }}</span>
                             <span class="announcement-date" style="font-style: italic;">{{ announcement.announcement_type.toUpperCase() }}</span>
                             <span class="announcement-date">{{ toDate(announcement.created_at) }}</span>
                         </div>
@@ -272,5 +272,11 @@
     .announcement-date{
         font-size: 18px;
         margin: 0px 5px
+    }
+
+    .ellipsis {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 </style>
