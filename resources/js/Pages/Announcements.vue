@@ -266,7 +266,8 @@
     .announcement-title{
         font-weight: bold;
         font-size: 18px;
-        margin: 0px 5px
+        margin: 0px 5px;
+        width: 100%;
     }
 
     .announcement-date{
