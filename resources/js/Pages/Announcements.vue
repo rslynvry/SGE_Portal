@@ -41,6 +41,11 @@
             </div>
         </AnnouncementsSkeleton>
 
+        <div v-if="!hasFetchedAnnouncements && !isAnnouncementFetching">
+            <NoData>
+                No announcements {{ type === 'all' ? 'available' : 'for ' + type.replace(/_/g, ' ') }}.
+            </NoData>
+        </div>
     </main>
 
     <Appeal></Appeal>
@@ -51,6 +56,7 @@
     import Navbar from '../Shared/Navbar.vue'
     import AnnouncementsSkeleton from '../Skeletons/AnnouncementsSkeleton.vue'
     import Appeal from '../Shared/Appeal.vue'
+    import NoData from '../Shared/NoData.vue'
 
     import axios from 'axios'
     import { router } from '@inertiajs/vue3'
@@ -115,7 +121,8 @@
             const { data: announcementData,
                     isLoading: isAnnouncementLoading,
                     isSuccess: isAnnouncementSuccess,
-                    isError: isAnnouncementError, } =
+                    isError: isAnnouncementError,
+                    isFetching: isAnnouncementFetching, } =
                     useQuery({
                         queryKey: [`announcement-${type}`],
                         queryFn: fetchAnnouncementType,
@@ -131,6 +138,7 @@
                 isAnnouncementLoading,
                 isAnnouncementSuccess,
                 isAnnouncementError,
+                isAnnouncementFetching,
             }
         },
         components:{
@@ -139,6 +147,7 @@
             Link,
             AnnouncementsSkeleton,
             Appeal,
+            NoData,
         },
         props:{
             type: String,

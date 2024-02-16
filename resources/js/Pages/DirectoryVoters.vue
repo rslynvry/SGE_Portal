@@ -20,6 +20,9 @@
             </div>
         </div>
 
+        <NoData v-if="!atleastOneElection && !isElectionFetching">
+            No elections available.
+        </NoData>
     </main>
 </template>
 
@@ -28,6 +31,7 @@
     import Navbar from '../Shared/Navbar.vue'
     import BaseContainer from '../Shared/BaseContainer.vue'
     import BaseTable from '../Shared/BaseTable.vue'
+    import NoData from '../Shared/NoData.vue'
 
     import { ref, watch } from 'vue'
     import axios from 'axios'
@@ -50,19 +54,14 @@
                     atleastOneElection.value = false;
                 }           
 
-                /*return response.data.elections.map(election => {
-                    const logo_url = `${import.meta.env.VITE_FASTAPI_BASE_URL}/api/v1/get/cached/elections/${election.OrganizationLogo}`
-                    election.OrganizationLogo = logo_url;
-
-                    return election;
-                });*/
                 return response.data.elections.slice().reverse();
             }
 
             const { data: electionsData,
                     isLoading: isElectionsLoading,
                     isSuccess: isElectionsSuccess,
-                    isError: isElectionsError} =
+                    isError: isElectionsError,
+                    isFetching: isElectionFetching} =
                     useQuery({
                         queryKey: ['fetchElectionsTable'],
                         queryFn: fetchElectionsTable,
@@ -75,6 +74,7 @@
                 isElectionsLoading,
                 isElectionsSuccess,
                 isElectionsError,
+                isElectionFetching,
             }
         },
         components:{
@@ -82,6 +82,7 @@
             Navbar,
             BaseContainer,
             BaseTable,
+            NoData
         },
         methods:{
             selectItem(item){

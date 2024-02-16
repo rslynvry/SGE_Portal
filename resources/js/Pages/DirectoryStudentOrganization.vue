@@ -13,11 +13,16 @@
             <div class="select">
                 <div class="election">
                     <div class="election-wrapper">
+                        <img v-if="isOrganizationSuccess" :src="organization.OrganizationLogo" alt="" class="election-logo">
                         <span class="election-name">{{ organization.OrganizationName }}</span>
                     </div>
                 </div>
             </div>
         </div>
+
+        <NoData v-if="!atleastOneOrganization && !isOrganizationFetching">
+            No student organizations available.
+        </NoData>
 
     </main>
 </template>
@@ -27,6 +32,7 @@
     import Navbar from '../Shared/Navbar.vue'
     import BaseContainer from '../Shared/BaseContainer.vue'
     import BaseTable from '../Shared/BaseTable.vue'
+    import NoData from '../Shared/NoData.vue'
 
     import { ref, watch } from 'vue'
     import axios from 'axios'
@@ -55,7 +61,8 @@
             const { data: organizationData,
                     isLoading: isOrganizationLoading,
                     isSuccess: isOrganizationSuccess,
-                    isError: isOrganizationError} =
+                    isError: isOrganizationError,
+                    isFetching: isOrganizationFetching} =
                     useQuery({
                         queryKey: ['fetchElectionsTable'],
                         queryFn: fetchElectionsTable,
@@ -68,6 +75,7 @@
                 isOrganizationLoading,
                 isOrganizationSuccess,
                 isOrganizationError,
+                isOrganizationFetching
             }
         },
         components:{
@@ -75,6 +83,7 @@
             Navbar,
             BaseContainer,
             BaseTable,
+            NoData,
         },
         methods:{
             selectItem(item){
@@ -142,6 +151,12 @@
         box-shadow: 0px 3px 5px rgba(167, 165, 165, 0.5);
         border-radius: 3px;
         transition: transform 0.4s ease;
+    }
+
+    .election-logo{
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
     }
 
     .election-wrapper{

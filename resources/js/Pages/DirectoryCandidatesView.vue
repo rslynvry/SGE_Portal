@@ -99,12 +99,16 @@
             </div>
         </div>
 
-        <h1 v-if="isElectionsLoading && isPositionsLoading && isCandidatesLoading && isCandidatesPerPositionLoading">Loading..</h1>
+        <Loading v-if="isElectionsLoading && isPositionsLoading && isCandidatesLoading && isCandidatesPerPositionLoading">
+        </Loading>
+        <NoData v-else-if="!atLeastOneCandidate">
+            There are no candidates at the moment for this election.
+        </NoData>
         <div v-else class="election">
             <div class="election-wrapper">
                 <div class="election-header">
                     <div class="centered">
-                        <img src="" alt="" class="election-logo">
+                        <img v-if="isOrgSuccess" :src="orgData.OrganizationLogo" alt="" class="election-logo">
                         <span class="election-title">{{ electionName }}</span>
                         <div class="end">
                             <button class="header-button" @click="fileCoc"><img src="../../images/Directory/Candidates/View/file-coc.svg" alt="" class="header-svg"></button>
@@ -191,6 +195,8 @@
     import Navbar from '../Shared/Navbar.vue'
     import ActionButton from '../Shared/ActionButton.vue'
     import Tooltip from '../Shared/Tooltip.vue';
+    import NoData from '../Shared/NoData.vue';
+    import Loading from '../Shared/Loading.vue';
 
     import { useQuery } from "@tanstack/vue-query";
     import { router } from '@inertiajs/vue3';
@@ -276,20 +282,7 @@
                 const response = await axios.get(`${import.meta.env.VITE_FASTAPI_BASE_URL}/api/v1/candidates/election/per-position/${activeElectionIndex.value}/all`);
                 console.log(`Get all candidates from selected election successful. Duration: ${response.duration}ms`)
 
-                let hasCandidates = false;
-                for (let position in response.data.candidates) {
-                    if (response.data.candidates[position].length > 0) {
-                    hasCandidates = true;
-                    break;
-                    }
-                }
-
-                if (hasCandidates) {
-                    atLeastOneCandidate.value = true;
-                } 
-                else {
-                    atLeastOneCandidate.value = false;
-                }
+                atLeastOneCandidate.value = Object.values(response.data.candidates).some(position => position.length > 0);
 
                 return response.data.candidates;
             }
@@ -303,6 +296,23 @@
                     queryKey: [`fetchCandidatsPerSelectedPosition${activeElectionIndex.value}`],
                     queryFn: fetchCandidatsPerSelectedPosition,
                 })
+
+            const fetchStudentOrganizationData = async () => {
+                const response = await axios.get(`${import.meta.env.VITE_FASTAPI_BASE_URL}/api/v1/student/organization/get_by_election_id/${activeElectionIndex.value}`, {
+                });
+                console.log(`Get organization data. Duration: ${response.duration}ms`)
+
+                return response.data.student_organization;
+            }
+
+            const { data: orgData,
+                    isLoading: isOrgLoading,
+                    isSuccess: isOrgSuccess,
+                    isError: isOrgError} =
+                    useQuery({
+                        queryKey: [`fetchStudentOrganizationData${activeElectionIndex.value}`],
+                        queryFn: fetchStudentOrganizationData,
+                    })
 
             return {
                 activeElectionIndex,
@@ -343,6 +353,11 @@
                 isCandidatesPerPositionError,
                 isCandidatesPerPositionRefetching,
 
+                orgData,
+                isOrgLoading,
+                isOrgSuccess,
+                isOrgError,
+
                 fetchPositionsOnElection,
                 fetchCandidatesFromSelectedElection,
                 fetchCandidatsPerSelectedPosition,
@@ -353,6 +368,8 @@
             Navbar,
             ActionButton,
             Tooltip,
+            NoData,
+            Loading,
         },
         props: {
             id: '',
@@ -711,6 +728,8 @@
 
 .election-logo{
     width: 50px;
+    height: 50px;
+    object-fit: cover;
 }
 
 .election-title{

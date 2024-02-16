@@ -16,6 +16,7 @@
             <div class="election-wrapper">
                 <div class="election-header">
                     <div class="centered">
+                        <img v-if="isOrgSuccess" :src="orgData.OrganizationLogo" alt="" class="election-logo">
                         <span class="election-title">{{ activeElectionName }}</span>
                     </div>
                 </div>
@@ -46,12 +47,10 @@
                         </tbody>
                     </table>
                 </div>
-                <div>
-                    <h2 class="my-3" v-if="isVotersLoading">Loading..</h2>
-                </div>
-                
             </div>
         </div>
+        <Loading v-if="isVotersLoading" marginTop="0%">
+        </Loading>
     </main>
 </template>
 
@@ -61,6 +60,7 @@
     import BaseContainer from '../Shared/BaseContainer.vue'
     import BaseTable from '../Shared/BaseTable.vue'
     import ImageSkeleton from '../Skeletons/ImageSkeleton.vue'
+    import Loading from '../Shared/Loading.vue'
 
     import { useQuery } from "@tanstack/vue-query";
     import { router } from '@inertiajs/vue3';
@@ -71,6 +71,23 @@
         setup(props) {
             const activeElectionIndex = ref(Number(props.id));
             const activeElectionName = ref(props.electionName);
+
+            const fetchStudentOrganizationData = async () => {
+                const response = await axios.get(`${import.meta.env.VITE_FASTAPI_BASE_URL}/api/v1/student/organization/get_by_election_id/${activeElectionIndex.value}`, {
+                });
+                console.log(`Get organization data. Duration: ${response.duration}ms`)
+
+                return response.data.student_organization;
+            }
+
+            const { data: orgData,
+                    isLoading: isOrgLoading,
+                    isSuccess: isOrgSuccess,
+                    isError: isOrgError} =
+                    useQuery({
+                        queryKey: [`fetchStudentOrganizationData${activeElectionIndex.value}`],
+                        queryFn: fetchStudentOrganizationData,
+                    })
 
             const fetchVotersData = async () => {
                 const response = await axios.get(`${import.meta.env.VITE_FASTAPI_BASE_URL}/api/v1/student/eligible/all/${activeElectionIndex.value}`, {
@@ -113,6 +130,11 @@
                 activeElectionIndex,
                 activeElectionName,
 
+                orgData,
+                isOrgLoading,
+                isOrgSuccess,
+                isOrgError,
+
                 votersData,
                 isVotersLoading,
                 isVotersSuccess,
@@ -128,7 +150,8 @@
             Navbar,
             BaseContainer,
             BaseTable,
-            ImageSkeleton
+            ImageSkeleton,
+            Loading
         },
         props: {
             id: '',
@@ -185,6 +208,8 @@
 
     .election-logo{
         width: 50px;
+        height: 50px;
+        object-fit: cover;
     }
 
     .election-title{
@@ -240,7 +265,6 @@
         left: 10px;
         top: 50%;
         transform: translateY(-50%);
-        background: url('search.svg') no-repeat center;
         background-size: contain;
         width: 20px;
         height: 20px;

@@ -4,9 +4,10 @@
     
     <main class="main-margin">
         <h1 class="current-page">
-            <span class="header" @click.prevent="returnPage">Directory</span> 
+            <span class="header" @click.prevent="returnDirectory">Directory</span> 
             <span class="arrow"> > Partylists > </span>
-            <span class="arrow"> {{ activeElectionName }} ></span>
+            <span class="arrow selectable" @click.prevent="returnElectionSelection"> Select Election </span>
+            <span class="arrow"> > {{ activeElectionName }} ></span>
             Select Partylist
         </h1>
 
@@ -14,12 +15,16 @@
             <div class="select">
                 <div class="election">
                     <div class="election-wrapper">
+                        <img v-if="isPartylistSuccess" :src="party.ImageAttachment" alt="" class="logo">
                         <span class="election-name">{{ party.PartyListName }}</span>
                     </div>
                 </div>
             </div>
         </div>
 
+        <NoData v-if="!atleastOnePartylist && !isPartylistFetching">
+            No partylists available for this election.
+        </NoData>
     </main>
 </template>
 
@@ -28,6 +33,7 @@
     import Navbar from '../Shared/Navbar.vue'
     import BaseContainer from '../Shared/BaseContainer.vue'
     import BaseTable from '../Shared/BaseTable.vue'
+    import NoData from '../Shared/NoData.vue'
 
     import { ref, watch } from 'vue'
     import axios from 'axios'
@@ -58,7 +64,8 @@
             const { data: partylistData,
                     isLoading: isPartylistLoading,
                     isSuccess: isPartylistSuccess,
-                    isError: isPartylistError} =
+                    isError: isPartylistError,
+                    isFetching: isPartylistFetching} =
                     useQuery({
                         queryKey: ['fetchElectionsTable'],
                         queryFn: fetchElectionsTable,
@@ -74,6 +81,7 @@
                 isPartylistLoading,
                 isPartylistSuccess,
                 isPartylistError,
+                isPartylistFetching
             }
         },
         components:{
@@ -81,6 +89,7 @@
             Navbar,
             BaseContainer,
             BaseTable,
+            NoData,
         },
         props: {
             id: '',
@@ -95,9 +104,12 @@
                         }
                 });
             },
-            returnPage(){
+            returnDirectory(){
                 router.visit('/directory')
             },
+            returnElectionSelection(){
+                router.visit('/directory/partylists')
+            }
         },
     }
 </script>
@@ -132,6 +144,11 @@
         cursor: pointer;
         text-decoration: underline;
     }
+    
+    .selectable:hover {
+        cursor: pointer;
+        text-decoration: underline;
+    }
 
     .main-margin{
         margin: 0% 8%;
@@ -153,6 +170,12 @@
         box-shadow: 0px 3px 5px rgba(167, 165, 165, 0.5);
         border-radius: 3px;
         transition: transform 0.4s ease;
+    }
+
+    .logo{
+        width: 55px;
+        height: 55px;
+        object-fit: cover;
     }
 
     .election-wrapper{

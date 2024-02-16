@@ -11,6 +11,8 @@
             View
         </h1>
 
+        <Loading v-if="isOrganizationLoading">
+        </Loading>
         <template v-if="!isOrganizationLoading">
             <div class="organization-header">
                 <img :src="organizationData.OrganizationLogo" alt="" class="organization-logo">
@@ -109,6 +111,7 @@
     import BaseContainer from '../Shared/BaseContainer.vue'
     import BaseTable from '../Shared/BaseTable.vue'
     import NoData from '../Shared/NoData.vue'
+    import Loading from '../Shared/Loading.vue'
 
     import { ref, watch } from 'vue'
     import axios from 'axios'
@@ -149,6 +152,7 @@
             BaseContainer,
             BaseTable,
             NoData,
+            Loading,
         },
         props:{
             id: ''

@@ -5,19 +5,24 @@
     <main class="main-margin">
         <h1 class="header">ELECTIONS</h1>
 
-        <template v-if="atLeastOneElection">
+        <template v-if="isElectionsFetching">
+            <Loading>
+            </Loading>
+        </template>
+
+        <template v-else-if="atLeastOneElection">
         <div class="election" v-for="(election, index) in electionsData" v-if="isElectionsSuccess">
             <div class="election-wrapper" :class="{ 'open': isOpen(election.ElectionId) }">
-                <div class="election-header">
+                <div class="election-header" @click.prevent="toggleElectionCard(election)">
                     <div class="centered">
                         <img :src="election.OrganizationLogo" alt="" class="election-logo">
                         <span class="election-title">{{ election.ElectionName }}</span>
-                            <button class="view-button" @click.prevent="viewMore(election)" v-if="isOpen(election.ElectionId)">
+                            <button class="view-button" @click.stop.prevent="viewMore(election)" v-if="isOpen(election.ElectionId)">
                                 <img src="../../images/Elections/view.svg" alt="" class="view-svg"> 
                                 View more details
                             </button>
                         <div class="end">
-                            <button class="down-button" @click.prevent="toggleElectionCard(election)">
+                            <button class="down-button">
                                 <img src="../../images/Elections/down.svg" alt="" class="down-svg" :class="{ 'rotate-up': isOpen(election.ElectionId), 'rotate-down': !isOpen(election.ElectionId) }">
                             </button>
                         </div>
@@ -110,7 +115,7 @@
     </template> 
 
     <template v-else>
-        <NoData v-if="isElectionsSuccess">
+        <NoData v-if="!isElectionsFetching">
             There are currently no elections.
         </NoData>
     </template>
@@ -127,6 +132,7 @@
     import BaseTable from '../Shared/BaseTable.vue'
     import Appeal from '../Shared/Appeal.vue'
     import NoData from '../Shared/NoData.vue'
+    import Loading from '../Shared/Loading.vue'
 
     import { ref } from 'vue'
     import axios from 'axios'
@@ -163,13 +169,6 @@
                     atLeastOneElection.value = true;
                 }
 
-                /*return response.data.elections.map(election => {
-                    const logo_url = `${import.meta.env.VITE_FASTAPI_BASE_URL}/api/v1/get/cached/elections/${election.OrganizationLogo}`
-                    election.OrganizationLogo = logo_url;
-
-                    return election;
-                });*/
-
                 // reverse
                 return response.data.elections.slice().reverse();
             }
@@ -177,11 +176,11 @@
             const { data: electionsData,
                     isLoading: isElectionsLoading,
                     isSuccess: isElectionsSuccess,
+                    isFetching: isElectionsFetching,
                     isError: isElectionsError} =
                     useQuery({
                         queryKey: ['fetchElectionsTable'],
                         queryFn: fetchElectionsTable,
-                        //staleTime: 1000 * 60 * 60,
                     })
 
             const isOpen = (id) => {
@@ -197,6 +196,7 @@
                 electionsData,
                 isElectionsLoading,
                 isElectionsSuccess,
+                isElectionsFetching,
                 isElectionsError,
 
                 isOpen,
@@ -209,6 +209,7 @@
             BaseTable,
             Appeal,
             NoData,
+            Loading,
         },
         methods:{
             viewMore(election){
@@ -347,6 +348,10 @@
 
     .election-header{
         align-items: center;
+    }
+
+    .election-header:hover{
+        cursor: pointer;
     }
 
     .election-logo{
