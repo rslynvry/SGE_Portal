@@ -52,7 +52,7 @@
 
                 <div class="appeal-buttons">
                     <button class="cancel-button" :disabled="submitting" @click.prevent="closeModal">Cancel</button>
-                    <ActionButton class="submit-button" :disabled="submitting" @click.prevent="submit">Submit</ActionButton>
+                    <ActionButton class="submit-button" :disabled="submitting" @click.prevent="submit">{{ submitButtonText }}</ActionButton>
                 </div>
             </div>
         </div>
@@ -219,6 +219,11 @@
             ActionButton,
             ToolTip,
         },
+        computed:{
+            submitButtonText(){
+                return this.submitting ? 'Submitting..' : 'Submit';
+            }
+        },
         methods: {
             openModal(){
                 this.isModalOpen = true;
@@ -239,11 +244,16 @@
                 this.$refs.attachmentLabel.value = '';
             },
             updateAttachment(event) {
+                const file = event.target.files[0];
+                if (file.size > 1024 * 1024 * 3) {
+                    alert('File size exceeds 3mb.');
+                    return;
+                }
                 const reader = new FileReader();
                 reader.onload = e => {
                     this.attachment = e.target.result;
                 };
-                reader.readAsDataURL(event.target.files[0]);
+                reader.readAsDataURL(file);
             },
             verifyInputs() {
                 if (this.student_number === '') {
@@ -254,13 +264,6 @@
                     alert('Please enter your appeal details.');
                     return false;
                 }
-                if (this.attachment !== '' || this.attachment !== null) {
-                    if (this.attachment.size > 1024 * 1024 * 3) {
-                        alert('File size exceeds 3mb.');
-                        return false;
-                    }
-                }
-
                 return true;
             },
             submit() {
@@ -271,9 +274,13 @@
                         attachment: ''
                     }
 
+                    if (this.submitting) {
+                        return;
+                    }
+
                     this.submitting = true;
                     
-                    if (this.attachment !== '' || this.attachment !== null) {
+                    if (this.attachment) {
                         data.attachment = this.attachment;
                     }
                     
@@ -297,7 +304,6 @@
                     })
                 }
             },
-
             redirectToAllAnnouncements() {
                 router.visit('/announcements');
             },

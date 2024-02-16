@@ -16,7 +16,7 @@
 
             <div class="appeal-buttons">
                 <button class="cancel-button" :disabled="submitting" @click.prevent="closeModal">Cancel</button>
-                <ActionButton class="submit-button" :disabled="submitting" @click.prevent="submit">Submit</ActionButton>
+                <ActionButton class="submit-button" :disabled="submitting" @click.prevent="submit">{{ submitButtonText }}</ActionButton>
             </div>
         </div>
     </div>
@@ -53,6 +53,11 @@
         components: {
             ActionButton,
             ToolTip,
+        },
+        computed:{
+            submitButtonText(){
+                return this.submitting ? 'Submitting..' : 'Submit';
+            }
         },
         methods: {
             openModal(){
@@ -104,6 +109,10 @@
                         student_number: this.student_number,
                         appeal_details: this.appeal_details,
                         attachment: ''
+                    }
+
+                    if (this.submitting) {
+                        return;
                     }
 
                     this.submitting = true;
