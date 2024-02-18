@@ -99,9 +99,9 @@
             </div>
         </div>
 
-        <Loading v-if="isElectionsLoading && isPositionsLoading && isCandidatesLoading && isCandidatesPerPositionLoading">
+        <Loading v-if="isElectionFetching && isPositionFetching && isCandidatesFetching && isCandidatesPerPositionFetching">
         </Loading>
-        <NoData v-else-if="!atLeastOneCandidate">
+        <NoData v-else-if="!atLeastOneCandidate && !isElectionFetching && !isPositionFetching && !isCandidatesFetching && !isCandidatesPerPositionFetching">
             There are no candidates at the moment for this election.
         </NoData>
         <div v-else class="election">
@@ -234,7 +234,8 @@
             const { data: electionsData,
                 isLoading: isElectionsLoading,
                 isSuccess: isElectionsSuccess,
-                isError: isElectionsError } =
+                isError: isElectionsError,
+                isFetching: isElectionFetching, } =
                 useQuery({
                     queryKey: [`fetchActiveElection-${activeElectionIndex.value}`],
                     queryFn: fetchActiveElection,
@@ -252,6 +253,7 @@
                 isLoading: isPositionsLoading,
                 isSuccess: isPositionsSuccess,
                 isError: isPositionsError,
+                isFetching: isPositionFetching,
                 isRefetching: isPositionsRefetching,
                 refetch: positionsRefetch } =
                 useQuery({
@@ -271,6 +273,7 @@
                 isLoading: isCandidatesLoading,
                 isSuccess: isCandidatesSuccess,
                 isError: isCandidatesError,
+                isFetching: isCandidatesFetching,
                 isRefetching: isCandidatesRefetching,
                 refetch: candidatesRefetch } =
                 useQuery({
@@ -291,6 +294,7 @@
                 isLoading: isCandidatesPerPositionLoading,
                 isSuccess: isCandidatesPerPositionSuccess,
                 isError: isCandidatesPerPositionError,
+                isFetching: isCandidatesPerPositionFetching,
                 isRefetching: isCandidatesPerPositionRefetching, } =
                 useQuery({
                     queryKey: [`fetchCandidatsPerSelectedPosition${activeElectionIndex.value}`],
@@ -334,23 +338,27 @@
                 isElectionsLoading,
                 isElectionsSuccess,
                 isElectionsError,
+                isElectionFetching,
 
                 positionsData,
                 isPositionsLoading,
                 isPositionsSuccess,
                 isPositionsError,
+                isPositionFetching,
                 isPositionsRefetching,
 
                 candidatesData,
                 isCandidatesLoading,
                 isCandidatesSuccess,
                 isCandidatesError,
+                isCandidatesFetching,
                 isCandidatesRefetching,
 
                 candidatesPerPositionData,
                 isCandidatesPerPositionLoading,
                 isCandidatesPerPositionSuccess,
                 isCandidatesPerPositionError,
+                isCandidatesPerPositionFetching,
                 isCandidatesPerPositionRefetching,
 
                 orgData,

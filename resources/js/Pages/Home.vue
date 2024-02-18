@@ -103,7 +103,7 @@
                             <br><br>
                             Remember: <strong>Your Vote, Your Voice, Your Future!</strong>
                             </p>
-                        <a href="https://sge-voting-byvcc.ondigitalocean.app">
+                        <a href="https://sge-voting-v93v4.ondigitalocean.app">
                             <button class="ems-button">Vote Now!</button>
                         </a>
                     </div>
@@ -122,7 +122,7 @@
                         <span class="message-title">Administer Student Elections Here!</span>
                         <p class="message-body">This is your hub for overseeing and managing the student elections. 
                             Remember, a well-managed election is the foundation of a successful student council.</p>
-                        <a href="https://king-prawn-app-2ep7s.ondigitalocean.app">
+                        <a href="https://sge-ems-6uaae.ondigitalocean.app">
                             <button class="ems-button">Go to EMS</button>
                         </a>
                     </div>

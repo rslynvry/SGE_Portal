@@ -6,7 +6,8 @@
         <h1 class="current-page">
             <span class="header" @click.prevent="returnDirectory">Directory</span> 
             <span class="arrow"> > Partylists > </span>
-            <span class="arrow" v-if="!isPartylistLoading"> {{ partylistData.ElectionName }} ></span>
+            <span class="arrow selectable" @click.prevent="returnElectionSelection"> Select Election </span>
+            <span class="arrow" v-if="!isPartylistLoading"> > {{ partylistData.ElectionName }} ></span>
             View Party List
         </h1>
 
@@ -189,7 +190,7 @@
             returnDirectory() {
                 router.visit('/directory')
             },
-            returnSelection() {
+            returnElectionSelection(){
                 router.visit('/directory/partylists')
             },
             getEmbedUrl(url) {
@@ -210,6 +211,11 @@
         margin: 1.5% 0%;
         font-size: 28px;
         font-weight: bold;
+    }
+
+    .selectable:hover {
+        cursor: pointer;
+        text-decoration: underline;
     }
 
     .current-page{
