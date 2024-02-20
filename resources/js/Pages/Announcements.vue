@@ -24,22 +24,22 @@
 
         <hr class="line">
 
-        <AnnouncementsSkeleton v-if="hasFetchedAnnouncements" :loading="isAnnouncementLoading" :itemCount="3">
-            <div class="announcements">
-                <div class="announcements-wrapper">
-                    <div class="select-announcement" v-for="(announcement, index) in announcementData" @click.prevent="onAnnouncementClick(announcement)" :key="index">
-                        <div class="announcement-information">
-                            <img :src="announcement.images[0].url" v-if="announcement.images.length > 0" class="announcement-img">
-                            <img v-else src="../../images/question.jpg" alt="?" class="announcement-img" style="object-fit: contain !important;">
+        <AnnouncementsSkeleton v-if="isAnnouncementLoading" :loading="isAnnouncementLoading" :itemCount="3">
+        </AnnouncementsSkeleton>
+        <div v-else class="announcements">
+            <div class="announcements-wrapper">
+                <div class="select-announcement" v-for="(announcement, index) in announcementData" @click.prevent="onAnnouncementClick(announcement)" :key="index">
+                    <div class="announcement-information">
+                        <img :src="announcement.images[0].url" v-if="announcement.images.length > 0" class="announcement-img">
+                        <img v-else src="../../images/question.jpg" alt="?" class="announcement-img" style="object-fit: contain !important;">
 
-                            <span class="announcement-title ellipsis">{{ announcement.title }}</span>
-                            <span class="announcement-date" style="font-style: italic;">{{ announcement.announcement_type.toUpperCase() }}</span>
-                            <span class="announcement-date">{{ toDate(announcement.created_at) }}</span>
-                        </div>
+                        <span class="announcement-title ellipsis">{{ announcement.title }}</span>
+                        <span class="announcement-date" style="font-style: italic;">{{ announcement.announcement_type.toUpperCase() }}</span>
+                        <span class="announcement-date">{{ toDate(announcement.created_at) }}</span>
                     </div>
                 </div>
             </div>
-        </AnnouncementsSkeleton>
+        </div>
 
         <div v-if="!hasFetchedAnnouncements && !isAnnouncementFetching">
             <NoData>
