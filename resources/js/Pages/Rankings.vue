@@ -377,10 +377,12 @@
             },
             isVotingPeriodEnded() {
                 // Check if current datetime is above voting period
-                const now = new Date();
-                const end = new Date(this.rankingsData.voting_end);
+                if (this.isRankingsSuccess) {
+                    const now = new Date();
+                    const end = new Date(this.rankingsData.voting_end);
 
-                return now > end;
+                    return now > end;
+                }
             },
             getOrdinalSuffix(i) {
                 const j = i % 10;

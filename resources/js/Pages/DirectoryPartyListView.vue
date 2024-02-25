@@ -79,20 +79,20 @@
                                             <span v-if="candidate.Rating && candidate.TimesRated">Ratings: {{ (candidate.Rating / candidate.TimesRated).toFixed(2) }}</span>
                                             <span v-else>Ratings: 0</span>
                                             <div class="rate-candidate">
-                                                <input type="radio" id="star5" name="rate" value="5" :checked="candidate.Rating / candidate.TimesRated >= 5" disabled/>
-                                                <label for="star5" title="5 star">5 stars</label>
+                                                <input type="radio" :id="'star5-' + index" :name="'rate' + index" value="5" :checked="candidate.Rating / candidate.TimesRated >= 5" disabled/>
+                                                <label :for="'star5-' + index" title="5 star">5 stars</label>
 
-                                                <input type="radio" id="star4" name="rate" value="4" :checked="candidate.Rating / candidate.TimesRated >= 4 && candidate.Rating / candidate.TimesRated <= 4.99" disabled/>
-                                                <label for="star4" title="4 star">4 stars</label>
+                                                <input type="radio" :id="'star4-' + index" :name="'rate' + index" value="4" :checked="candidate.Rating / candidate.TimesRated >= 4 && candidate.Rating / candidate.TimesRated <= 4.99" disabled/>
+                                                <label :for="'star4-' + index" title="4 star">4 stars</label>
 
-                                                <input type="radio" id="star3" name="rate" value="3" :checked="candidate.Rating / candidate.TimesRated >= 3 && candidate.Rating / candidate.TimesRated <= 3.99" disabled/>
-                                                <label for="star3" title="3 star">3 stars</label>
+                                                <input type="radio" :id="'star3-' + index" :name="'rate' + index" value="3" :checked="candidate.Rating / candidate.TimesRated >= 3 && candidate.Rating / candidate.TimesRated <= 3.99" disabled/>
+                                                <label :for="'star3-' + index" title="3 star">3 stars</label>
 
-                                                <input type="radio" id="star2" name="rate" value="2" :checked="candidate.Rating / candidate.TimesRated >= 2 && candidate.Rating / candidate.TimesRated <= 2.99" disabled/>
-                                                <label for="star2" title="2 star">2 stars</label>
+                                                <input type="radio" :id="'star2-' + index" :name="'rate' + index" value="2" :checked="candidate.Rating / candidate.TimesRated >= 2 && candidate.Rating / candidate.TimesRated <= 2.99" disabled/>
+                                                <label :for="'star2-' + index" title="2 star">2 stars</label>
 
-                                                <input type="radio" id="star1" name="rate" value="1" :checked="candidate.Rating / candidate.TimesRated >= 1 && candidate.Rating / candidate.TimesRated <= 1.99" disabled/>
-                                                <label for="star1" title="1 star">1 stars</label>
+                                                <input type="radio" :id="'star1-' + index" :name="'rate' + index" value="1" :checked="candidate.Rating / candidate.TimesRated >= 1 && candidate.Rating / candidate.TimesRated <= 1.99" disabled/>
+                                                <label :for="'star1-' + index" title="1 star">1 stars</label>
                                             </div>
                                         </div>
                                         <span class="etc">{{ candidate.Student.CourseCode }} {{ candidate.Student.Year }}-{{ candidate.Student.Section }}</span>

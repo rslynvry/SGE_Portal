@@ -55,7 +55,7 @@
                     atleastOneOrganization.value = false;
                 }           
 
-                return response.data.student_organizations;
+                return response.data.student_organizations.slice().reverse();
             }
 
             const { data: organizationData,
