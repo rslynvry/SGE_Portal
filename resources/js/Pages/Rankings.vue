@@ -308,6 +308,7 @@
                 useQuery({
                     queryKey: [`rankingsData-${electionId.value}-${selectedPosition.value}`],
                     queryFn: getPositionRankings,
+                    refetchInterval: 1000, // Refetch every 1 second
                 })
 
             // Set the selectedPosition as first of positionsData

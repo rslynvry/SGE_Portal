@@ -42,6 +42,12 @@
                                 </div>
                                 <p class="announcement-content">
                                     {{ body }}
+                                    <br>
+                                    <br>
+                                    <!--<a :href="`http://127.0.0.1:7500/elections/view/winners?id=${electionId}`" >
+                                        Click to view the winners now.
+                                    </a>
+                                    -->
                                 </p>
                             </div>
                         </div>
