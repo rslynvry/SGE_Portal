@@ -52,7 +52,7 @@
         
                 <div class="candidate-rating-wrapper" v-else>
                     <div class="verification-header mb-4">
-                        <h1 class="header-label">Candidate Rating Verification</h1>
+                        <h1 class="header-label">Candidate Rating</h1>
                         <button class="close-button" @click="closeRateCandidates"><img src="../../images/Directory/Candidates/View/close.svg" alt="" class="close-svg"></button>
                     </div>
 
