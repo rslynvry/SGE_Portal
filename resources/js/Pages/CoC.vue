@@ -308,6 +308,23 @@
                         queryFn: fetchPositions,
                     })
 
+            const fetchActiveElection = async () => {
+                const response = await axios.get(`${import.meta.env.VITE_FASTAPI_BASE_URL}/api/v1/election/view/${id.value}`);
+                console.log(`Get election with id ${id.value} successful. Duration: ${response.duration}ms`)
+
+                return response.data.election;
+            }
+
+            const { data: electionsData,
+                isLoading: isElectionsLoading,
+                isSuccess: isElectionsSuccess,
+                isError: isElectionsError,
+                isFetching: isElectionFetching, } =
+                useQuery({
+                    queryKey: [`fetchActiveElection-${id.value}`],
+                    queryFn: fetchActiveElection,
+                })
+
             return {
                 id,
                 electionName,
@@ -344,6 +361,12 @@
                 isPositionsLoading,
                 isPositionsSuccess,
                 isPositionsError,
+
+                electionsData,
+                isElectionsLoading,
+                isElectionsSuccess,
+                isElectionsError,
+                isElectionFetching
             }
         },
         components:{
@@ -449,6 +472,18 @@
                 })
 
             },
+            isFilingPeriod() {
+                // Check if current datetime is within filing period
+                if (this.isElectionsLoading) {
+                    return
+                }
+
+                const now = new Date();
+                const start = new Date(this.electionsData.CoCFilingStart);
+                const end = new Date(this.electionsData.CoCFilingEnd);
+
+                return now >= start && now < end;
+            },
             validate() {
                 if (this.student_number === '') {
                     alert('Please enter your student number.')
@@ -490,6 +525,11 @@
 
                 if (this.certification_of_grades_file === '') {
                     alert('Please upload your certification of grades.')
+                    return false;
+                }
+
+                if (!this.isFilingPeriod()) {
+                    alert('CoC filing for this election is now closed.')
                     return false;
                 }
 

@@ -112,7 +112,7 @@
                         <span class="election-title">{{ electionName }}</span>
                         <div class="end">
                             <button class="header-button" @click="fileCoc"><img src="../../images/Directory/Candidates/View/file-coc.svg" alt="" class="header-svg"></button>
-                            <button class="header-button space" @click="openRateCandidates" :disabled="isCandidatesPerPositionLoading || !isCampaignPeriod || !atLeastOneCandidate"><img src="../../images/Directory/Candidates/View/rate.svg" alt="" class="header-svg result"></button>
+                            <button class="header-button space" @click="openRateCandidates" :disabled="isCandidatesPerPositionLoading || !atLeastOneCandidate"><img src="../../images/Directory/Candidates/View/rate.svg" alt="" class="header-svg result"></button>
                         </div>
                     </div>
                 </div>
@@ -403,18 +403,6 @@
                     return 'Submit';
                 }
             },
-            isCampaignPeriod() {
-                // Check if current datetime is after campaign period
-                if (this.isElectionsLoading) {
-                    return
-                }
-
-                const now = new Date();
-                const start = new Date(this.electionsData.CampaignStart);
-                const end = new Date(this.electionsData.CampaignEnd);
-                
-                return now >= start && now < end;
-            },
         },
         created() {
             this.intervalId = setInterval(() => {
@@ -435,7 +423,35 @@
             returnSelection() {
                 router.visit('/directory/candidates')
             },
+            isFilingPeriod() {
+                // Check if current datetime is within filing period
+                if (this.isElectionsLoading) {
+                    return
+                }
+
+                const now = new Date();
+                const start = new Date(this.electionsData.CoCFilingStart);
+                const end = new Date(this.electionsData.CoCFilingEnd);
+
+                return now >= start && now < end;
+            },
+            isCampaignPeriod() {
+                // Check if current datetime is after campaign period
+                if (this.isElectionsLoading) {
+                    return
+                }
+
+                const now = new Date();
+                const start = new Date(this.electionsData.CampaignStart);
+                const end = new Date(this.electionsData.CampaignEnd);
+                
+                return now >= start && now < end;
+            },
             fileCoc(){
+                if (!this.isFilingPeriod()) {
+                    return alert('CoC filing for this election is currently closed.')
+                }
+            
                 router.visit('/elections/view/file-coc', {
                     data: {
                         id: this.activeElectionIndex,
@@ -446,6 +462,9 @@
                 this.activeElectionIndex = this.activeElectionIndex === index ? null : index;
             },
             openRateCandidates() {
+                if (!this.isCampaignPeriod()) {
+                    return alert('Campaign period (Includes rating) for this election is currently closed.')
+                }
                 this.showRateModal = true;
             },
             closeRateCandidates() {
