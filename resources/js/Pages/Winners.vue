@@ -101,15 +101,24 @@
                                 <div class="stats row">
                                     <div class="stats-count col-4">
                                         <span class="count-quantity">{{ candidate.votes }}</span>
-                                        <img src="../../images/Winners/vote.svg" alt="" class="count-svg vote-svg">
+                                        <img src="../../images/Winners/vote.svg" alt="" class="count-svg vote-svg" 
+                                            data-bs-toggle="tooltip" 
+                                            data-bs-placement="top" 
+                                            data-bs-title="Votes Received">                                    
                                     </div>
                                     <div class="stats-count col-4">                                
                                         <span class="count-quantity">{{ candidate.times_abstained }}</span>
-                                        <img src="../../images/Winners/abstain.svg" alt="" class="count-svg abstain-svg abstain">
+                                        <img src="../../images/Winners/abstain.svg" alt="" class="count-svg abstain-svg abstain"
+                                            data-bs-toggle="tooltip" 
+                                            data-bs-placement="top" 
+                                            data-bs-title="Abstain Received">
                                     </div>
                                     <div class="stats-count col-4">                                
                                         <span class="count-quantity">{{ candidate.percentage.toFixed(2) }}</span>
-                                        <img src="../../images/Winners/percent.svg" alt="" class="count-svg percent">
+                                        <img src="../../images/Winners/percent.svg" alt="" class="count-svg percent"
+                                            data-bs-toggle="tooltip" 
+                                            data-bs-placement="top" 
+                                            data-bs-title="Overall Votes Percentage">
                                     </div>
                                 </div>
                             </div>
@@ -135,12 +144,14 @@
     import { useQuery } from "@tanstack/vue-query";
     import { router } from '@inertiajs/vue3';
     import { ref, computed, watch } from 'vue';
+    import { useLocalStorage } from '@vueuse/core'
+    import { Tooltip } from 'bootstrap'
     import axios from 'axios';
 
     export default {
         setup(props) {
             const electionId = ref(Number(props.election_id));
-            const isNoWinnerForEveryPosition = ref(true);
+            const isNoWinnerForEveryPosition = useLocalStorage('isNoWinnerForEveryPosition', true);
 
             const getElectionData = async () => {
                 const response = await axios.get(`${import.meta.env.VITE_FASTAPI_BASE_URL}/api/v1/election/view/${electionId.value}`);
@@ -204,6 +215,11 @@
                 isWinnersSuccess,
                 isWinnersError,
             }
+        },
+        mounted() {
+            new Tooltip(document.body, {
+            selector: "[data-bs-toggle='tooltip']",
+            })
         },
         components: {
             Standards,
