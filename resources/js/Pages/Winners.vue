@@ -104,21 +104,21 @@
                                         <img src="../../images/Winners/vote.svg" alt="" class="count-svg vote-svg" 
                                             data-bs-toggle="tooltip" 
                                             data-bs-placement="top" 
-                                            data-bs-title="Votes Received">                                    
+                                            data-bs-title="Votes received">                                    
                                     </div>
                                     <div class="stats-count col-4">                                
                                         <span class="count-quantity">{{ candidate.times_abstained }}</span>
                                         <img src="../../images/Winners/abstain.svg" alt="" class="count-svg abstain-svg abstain"
                                             data-bs-toggle="tooltip" 
                                             data-bs-placement="top" 
-                                            data-bs-title="Abstain Received">
+                                            data-bs-title="Abstain received">
                                     </div>
                                     <div class="stats-count col-4">                                
                                         <span class="count-quantity">{{ candidate.percentage.toFixed(2) }}</span>
                                         <img src="../../images/Winners/percent.svg" alt="" class="count-svg percent"
                                             data-bs-toggle="tooltip" 
                                             data-bs-placement="top" 
-                                            data-bs-title="Overall Votes Percentage">
+                                            data-bs-title="Votes by position percentage">
                                     </div>
                                 </div>
                             </div>
