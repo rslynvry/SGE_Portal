@@ -84,7 +84,7 @@
                                         <div class="upload">
                                             <img :src="rankOne.display_photo" alt="" class="top-img">
                                             <div class="round1">
-                                                <img src="../../images/Rankings/1st.svg" alt="" class="rank-svg">
+                                                <img src="../../images/Rankings/1st.png" alt="" class="rank-svg">
                                             </div>
                                         </div>
                                         <span class="top-name">{{ rankOne.full_name }}</span>
@@ -110,7 +110,7 @@
                                         <div class="upload">
                                             <img :src="rankTwo.display_photo" alt="" class="top-img">
                                             <div class="round1">
-                                                <img src="../../images/Rankings/2nd.svg" alt="" class="rank-svg">
+                                                <img src="../../images/Rankings/2nd.png" alt="" class="rank-svg">
                                             </div>
                                         </div>
                                         <span class="top-name">{{ rankTwo.full_name }}</span>
@@ -136,7 +136,7 @@
                                         <div class="upload">
                                             <img :src="rankThree.display_photo"  alt="" class="top-img">
                                             <div class="round1">
-                                                <img src="../../images/Rankings/3rd.svg" alt="" class="rank-svg">
+                                                <img src="../../images/Rankings/3rd.png" alt="" class="rank-svg">
                                             </div>
                                         </div>
                                         <span class="top-name">{{ rankThree.full_name }}</span>
@@ -590,8 +590,8 @@
     }
 
     .rank-svg{
-        width: 38px;
-        height: 38px;
+        width: 50px;
+        height: 50px;
         margin-bottom: 10px;
     }
 
