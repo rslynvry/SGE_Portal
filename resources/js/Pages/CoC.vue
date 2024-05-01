@@ -518,6 +518,16 @@
                     }
                 }
 
+                if (this.motto === '') {
+                    alert('Please enter your motto.')
+                    return false;
+                }
+
+                if (this.platforms === '') {
+                    alert('Please enter your platforms.')
+                    return false;
+                }
+
                 if (this.display_photo_file === '') {
                     alert('Please upload your display photo.')
                     return false;
