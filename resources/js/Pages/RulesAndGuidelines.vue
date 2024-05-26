@@ -34,7 +34,6 @@
         </div>
     </main>
 
-    <Appeal></Appeal>
 </template>
 
 <script>

@@ -24,14 +24,6 @@
                         <span class="feature-description">Create your crew, let your collective voices echo.</span>
                     </div>
                 </a>
-    
-                <div class="select-feature" @click="openModal" style="cursor: pointer;">
-                    <div class="feature-information">
-                        <img src="../../images/Home/talk.png" alt="" class="feature-img">
-                        <span class="feature-title">FILE AN APPEAL</span>
-                        <span class="feature-description">Stand tall, question the status quo for what’s right.</span>
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -346,7 +338,7 @@
     }
 
     .features-wrapper{
-        margin: 0% 8%;
+        margin: 0% 20%;
         display: flex;
         flex-wrap: wrap;
         justify-content: space-around;

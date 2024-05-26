@@ -101,12 +101,6 @@
                                 <span class="period-dates">to</span>
                                 <span class="period-dates">{{ getDateTime(election.VotingEnd) }}</span>
                             </li>
-                            <li class="period" :class="{'active': hasStarted(election.AppealStart)}">
-                                <span class="period-name">APPEAL PERIOD</span>
-                                <span class="period-dates">{{ getDateTime(election.AppealStart) }}</span>
-                                <span class="period-dates">to</span>
-                                <span class="period-dates">{{ getDateTime(election.AppealEnd) }}</span>
-                            </li>
                         </ul>
                     </div>
                 </div>
@@ -122,7 +116,6 @@
 
     </main>
 
-    <Appeal></Appeal>
 </template>
 
 <script>
